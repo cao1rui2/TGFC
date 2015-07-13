@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
     		public void run() {
     			HttpURLConnection connection = null;
     			try {
-    				URL url = new URL("http://club.tgfcer.com/forum-10-1.html");
+    				URL url = new URL("http://club.tgfcer.com");
     				connection = (HttpURLConnection) url.openConnection();
     				connection.setRequestMethod("GET");
     				connection.setConnectTimeout(8000);
@@ -138,7 +138,7 @@ public class MainActivity extends Activity {
 		protected Void doInBackground(String... params) {
     		try {
     			//正则表达式抓取所需元素：板块名+链接
-    	    	Pattern p = Pattern.compile("<a href=\"(.*?)\">\r\n(.*?)</a></span>");
+    	    	Pattern p = Pattern.compile("h2>.*?href=\"(.*?)\">(.*?)<.*?/h2");
     	    	Matcher m = p.matcher(params[0]);
     	    	while (m.find()) {
     	    		data.add(new Page(m.group(2), m.group(1)));
