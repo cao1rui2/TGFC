@@ -44,6 +44,9 @@ public class SecondActivity extends Activity {
 
 				AnalysisTask aTask = new AnalysisTask();
 				aTask.execute(response);
+				//测试
+				//TextView responseText = (TextView) findViewById(R.id.response);
+				//responseText.setText(response);
 			}
 		}
 	};	
@@ -105,7 +108,7 @@ public class SecondActivity extends Activity {
     
     private List<Page> analysisResponse(String response) {
     	
-    	Pattern p = Pattern.compile("<a href=\"(.*?)\">\r\n(.*?)</a></span>");
+    	Pattern p = Pattern.compile("<a href=\"(.*?)\">\\n(.*?)</a></span>");
     	Matcher m = p.matcher(response);
     	while (m.find()) {
     		data.add(new Page(m.group(2), m.group(1)));
@@ -138,8 +141,8 @@ public class SecondActivity extends Activity {
     	@Override
 		protected Void doInBackground(String... params) {
     		try {
-    			
-    	    	Pattern p = Pattern.compile("<span id=\".*?\"><a href=\"(.*?)\">\r\n(.*?)</a></span>");
+    			//此处正则表达式极不严谨，待优化。
+    	    	Pattern p = Pattern.compile("href=\"(thread-\\d{1,9}-1-1.html)\">(.{1,140})</a></span>");
     	    	Matcher m = p.matcher(params[0]);
     	    	while (m.find()) {
     	    		data.add(new Page(m.group(2), m.group(1)));
@@ -160,6 +163,15 @@ public class SecondActivity extends Activity {
         	listView.setAdapter(adapter);
 			//Page page = data.get(1);
 			//Toast.makeText(SecondActivity.this, result, Toast.LENGTH_LONG).show();
+        	
+        	listView.setOnItemClickListener(new OnItemClickListener() {
+        		@Override
+        		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        			Page page = data.get(position);
+        			Toast.makeText(SecondActivity.this, page.getUrl(), Toast.LENGTH_SHORT).show();
+        			
+        		}
+        	});
     	}
 
 		
