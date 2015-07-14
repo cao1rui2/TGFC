@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.tgfc.app.SecondActivity.AnalysisTask;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -20,15 +22,12 @@ import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class SecondActivity extends Activity {
+public class ThirdActivity extends Activity {
 	
-
-	
-	private List<Page> data = new ArrayList<Page>();
+	private List<Neirong> data = new ArrayList<Neirong>();
 	
 	
 	public static final int ANALYSIS_RESPONSE = 0;
@@ -38,25 +37,18 @@ public class SecondActivity extends Activity {
 			switch (msg.what) {
 			case ANALYSIS_RESPONSE:
 				String response = (String) msg.obj;
-				//analysisResponse(response);
-				//String test = "<span id=\"thread_7108976\"><a href=\"thread-7108976-1-1.html\">\r\n完了    今天泳池玩大了   手机疑似进水？？？    sim 卡  tf  卡都没了</a></span>";
-
-
 				AnalysisTask aTask = new AnalysisTask();
 				aTask.execute(response);
-				//测试
 				//TextView responseText = (TextView) findViewById(R.id.response);
 				//responseText.setText(response);
 			}
 		}
 	};	
 	
-	
-	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sec);
+        setContentView(R.layout.activity_thi);
     	String before = "http://club.tgfcer.com/";
         Intent intent = getIntent();
         String post = intent.getStringExtra("post_data");
@@ -106,46 +98,16 @@ public class SecondActivity extends Activity {
     	}).start();
     }
     
-    private List<Page> analysisResponse(String response) {
-    	
-    	Pattern p = Pattern.compile("<a href=\"(.*?)\">\\n(.*?)</a></span>");
-    	Matcher m = p.matcher(response);
-    	while (m.find()) {
-    		data.add(new Page(m.group(2), m.group(1)));
-    	}
-    	//PageAdapter2 adapter = new PageAdapter2(SecondActivity.this, R.layout.page_item2, data);
-    	//ListView listView = (ListView) findViewById(R.id.list_view2);
-    	//listView.setAdapter(adapter);
-    	return data;
-		//Page page = data.get(1);
-		//Toast.makeText(SecondActivity.this, page.getTitle(), Toast.LENGTH_SHORT).show();
-    	
-    	//ListView点击事件
-    	/*
-    	listView.setOnItemClickListener(new OnItemClickListener() {
-    		@Override
-    		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    			Page page = data.get(position);
-    			//Toast.makeText(MainActivity.this, page.getTitle(), Toast.LENGTH_SHORT).show();
-    			String post = page.getUrl();
-    			Intent intent = new Intent(SecondActivity.this, SecondActivity.class);
-    			intent.putExtra("psot_data", post);
-    			startActivity(intent);
-    		}
-    	});
-    	*/	
-    }
-    
     class AnalysisTask extends AsyncTask<String, Void, Void> {
     	
     	@Override
 		protected Void doInBackground(String... params) {
     		try {
     			//此处正则表达式极不严谨，待优化。
-    	    	Pattern p = Pattern.compile("href=\"(thread-\\d{1,9}-1-1.html)\">(.{1,140})</a></span>");
+    	    	Pattern p = Pattern.compile(">(.{1,20})</a></cite>[\\s\\S]*?id=\"postmessage_\\d{1,9}\"[\\s\\S]*?>([\\s\\S]*?)</div>\\W");
     	    	Matcher m = p.matcher(params[0]);
     	    	while (m.find()) {
-    	    		data.add(new Page(m.group(2), m.group(1)));
+    	    		data.add(new Neirong(m.group(1), m.group(2)));
     	    		
     	    	}
     	    	
@@ -158,8 +120,8 @@ public class SecondActivity extends Activity {
     	
     	@Override
     	protected void onPostExecute(Void result) {
-        	PageAdapter2 adapter = new PageAdapter2(SecondActivity.this, R.layout.page_item2, data);
-        	ListView listView = (ListView) findViewById(R.id.list_view2);
+        	NeirongAdapter adapter = new NeirongAdapter(ThirdActivity.this, R.layout.neirong_item, data);
+        	ListView listView = (ListView) findViewById(R.id.list_view3);
         	listView.setAdapter(adapter);
 			//Page page = data.get(1);
 			//Toast.makeText(SecondActivity.this, result, Toast.LENGTH_LONG).show();
@@ -167,18 +129,12 @@ public class SecondActivity extends Activity {
         	listView.setOnItemClickListener(new OnItemClickListener() {
         		@Override
         		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        			Page page = data.get(position);
-        			//Toast.makeText(SecondActivity.this, page.getUrl(), Toast.LENGTH_SHORT).show();
-        			String post = page.getUrl();
-        			Intent intent = new Intent(SecondActivity.this, ThirdActivity.class);
-        			intent.putExtra("post_data", post);
-        			startActivity(intent);
+        			
         		}
         	});
     	}
 
 		
     }
-    
 
 }
