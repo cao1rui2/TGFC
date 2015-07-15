@@ -21,9 +21,12 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
+import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -49,7 +52,15 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        Button back = (Button) findViewById(R.id.back_button);
+        back.setOnClickListener(new OnClickListener() {
+        	@Override
+        	public void onClick(View v) {
+        		MainActivity.this.finish();
+        	}
+        });
         getHttpURLConnection();
     }
     //获取网页源码文本
@@ -167,8 +178,10 @@ public class MainActivity extends Activity {
         			Page page = data.get(position);
         			//Toast.makeText(MainActivity.this, page.getUrl(), Toast.LENGTH_SHORT).show();
         			String post = page.getUrl();
+        			String title = page.getTitle();
         			Intent intent = new Intent(MainActivity.this, SecondActivity.class);
         			intent.putExtra("post_data", post);
+        			intent.putExtra("post_title", title);
         			startActivity(intent);
         		}
         	});

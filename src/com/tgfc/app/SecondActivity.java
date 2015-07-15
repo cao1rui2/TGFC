@@ -18,7 +18,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
@@ -56,11 +59,25 @@ public class SecondActivity extends Activity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_sec);
+        
+        Button back = (Button) findViewById(R.id.back_button);
+        back.setOnClickListener(new OnClickListener() {
+        	@Override
+        	public void onClick(View v) {
+        		SecondActivity.this.finish();
+        	}
+        });
+        
     	String before = "http://club.tgfcer.com/";
         Intent intent = getIntent();
         String post = intent.getStringExtra("post_data");
+        String title = intent.getStringExtra("post_title");
         String urlString = before + post;
+        
+        TextView titleView = (TextView) findViewById(R.id.title);
+        titleView.setText(title);
         
         URL perUrl = null;
 		try {
@@ -170,8 +187,10 @@ public class SecondActivity extends Activity {
         			Page page = data.get(position);
         			//Toast.makeText(SecondActivity.this, page.getUrl(), Toast.LENGTH_SHORT).show();
         			String post = page.getUrl();
+        			String title = page.getTitle();
         			Intent intent = new Intent(SecondActivity.this, ThirdActivity.class);
         			intent.putExtra("post_data", post);
+        			intent.putExtra("post_title", title);
         			startActivity(intent);
         		}
         	});
