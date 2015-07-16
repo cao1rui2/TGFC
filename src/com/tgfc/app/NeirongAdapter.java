@@ -33,7 +33,7 @@ public class NeirongAdapter extends ArrayAdapter<Neirong> {
 			view = convertView;
 			viewHolder = (ViewHolder) view.getTag();
 		}
-		viewHolder.neirongName.setText(neirong.getName());
+		viewHolder.neirongName.setText((position + 1) + "#" + " " + neirong.getName());
 		viewHolder.neirongContent.setText(neirong.getContent());
 		return view;
 	}

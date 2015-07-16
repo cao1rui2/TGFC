@@ -28,12 +28,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
 	
 	private List<Page> data = new ArrayList<Page>();
+	private ProgressBar progressBar;
 	
 	public static final int ANALYSIS_RESPONSE = 0;
 	
@@ -54,6 +56,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         Button back = (Button) findViewById(R.id.back_button);
         back.setOnClickListener(new OnClickListener() {
         	@Override
@@ -65,6 +68,9 @@ public class MainActivity extends Activity {
     }
     //获取网页源码文本
     private void getHttpURLConnection() {
+    	
+    	progressBar.setVisibility(View.VISIBLE);
+    	
     	new Thread(new Runnable() {
     		@Override
     		public void run() {
@@ -185,6 +191,8 @@ public class MainActivity extends Activity {
         			startActivity(intent);
         		}
         	});
+        	
+        	progressBar.setVisibility(View.GONE);
     	}
 
 		

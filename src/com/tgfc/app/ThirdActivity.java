@@ -25,12 +25,14 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ThirdActivity extends Activity {
 	
 	private List<Neirong> data = new ArrayList<Neirong>();
+	private ProgressBar progressBar;
 	
 	
 	public static final int ANALYSIS_RESPONSE = 0;
@@ -53,7 +55,7 @@ public class ThirdActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_thi);
-        
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         Button back = (Button) findViewById(R.id.back_button);
         back.setOnClickListener(new OnClickListener() {
         	@Override
@@ -79,10 +81,24 @@ public class ThirdActivity extends Activity {
 			e.printStackTrace();
 		}
 		
+		final URL link = perUrl;
+		
         getHttpURLConnection(perUrl);
+        
+        Button refresh = (Button) findViewById(R.id.refresh_button);
+        refresh.setOnClickListener(new OnClickListener() {
+        	@Override
+        	public void onClick(View v) {
+        		data.removeAll(data);
+        		getHttpURLConnection(link);
+        	}
+        });
     }
 	
     private void getHttpURLConnection(final URL url) {
+    	
+    	progressBar.setVisibility(View.VISIBLE);
+    	
     	new Thread(new Runnable() {
     		@Override
     		public void run() {
@@ -149,6 +165,8 @@ public class ThirdActivity extends Activity {
         			
         		}
         	});
+        	
+        	progressBar.setVisibility(View.GONE);
     	}
 
 		

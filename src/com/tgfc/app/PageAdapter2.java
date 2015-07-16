@@ -11,18 +11,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class PageAdapter2 extends ArrayAdapter<Page> {
+public class PageAdapter2 extends ArrayAdapter<Page2> {
 	
 	private int resourceId;
 	
-	public PageAdapter2(Context context, int textViewResourceId, List<Page> objects) {
+	public PageAdapter2(Context context, int textViewResourceId, List<Page2> objects) {
 		super(context, textViewResourceId, objects);
 		resourceId = textViewResourceId;
 	}
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Page page = getItem(position);
+		Page2 page = getItem(position);
 		View view;
 		ViewHolder viewHolder;
 		if (convertView == null) {
@@ -34,7 +34,7 @@ public class PageAdapter2 extends ArrayAdapter<Page> {
 			view = convertView;
 			viewHolder = (ViewHolder) view.getTag();
 		}
-		viewHolder.pageTitle2.setText(page.getTitle());
+		viewHolder.pageTitle2.setText(page.getTitle() + "   " + "(" + page.getReplynum() + "»Ø¸´)");
 		return view;
 	}
 	

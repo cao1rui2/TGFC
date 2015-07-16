@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,8 @@ public class SecondActivity extends Activity {
 	
 
 	
-	private List<Page> data = new ArrayList<Page>();
+	private List<Page2> data = new ArrayList<Page2>();
+	private ProgressBar progressBar;
 	
 	
 	public static final int ANALYSIS_RESPONSE = 0;
@@ -62,6 +64,8 @@ public class SecondActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_sec);
         
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        
         Button back = (Button) findViewById(R.id.back_button);
         back.setOnClickListener(new OnClickListener() {
         	@Override
@@ -69,6 +73,8 @@ public class SecondActivity extends Activity {
         		SecondActivity.this.finish();
         	}
         });
+        
+
         
     	String before = "http://club.tgfcer.com/";
         Intent intent = getIntent();
@@ -87,10 +93,24 @@ public class SecondActivity extends Activity {
 			e.printStackTrace();
 		}
 		
+		final URL link = perUrl;
+		
         getHttpURLConnection(perUrl);
+        
+        Button refresh = (Button) findViewById(R.id.refresh_button);
+        refresh.setOnClickListener(new OnClickListener() {
+        	@Override
+        	public void onClick(View v) {
+        		data.removeAll(data);
+        		getHttpURLConnection(link);
+        	}
+        });
     }
 	
     private void getHttpURLConnection(final URL url) {
+    	
+    	progressBar.setVisibility(View.VISIBLE);
+    	
     	new Thread(new Runnable() {
     		@Override
     		public void run() {
@@ -122,7 +142,7 @@ public class SecondActivity extends Activity {
     		}
     	}).start();
     }
-    
+    /*
     private List<Page> analysisResponse(String response) {
     	
     	Pattern p = Pattern.compile("<a href=\"(.*?)\">\\n(.*?)</a></span>");
@@ -138,7 +158,7 @@ public class SecondActivity extends Activity {
 		//Toast.makeText(SecondActivity.this, page.getTitle(), Toast.LENGTH_SHORT).show();
     	
     	//ListView点击事件
-    	/*
+    	
     	listView.setOnItemClickListener(new OnItemClickListener() {
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -150,8 +170,9 @@ public class SecondActivity extends Activity {
     			startActivity(intent);
     		}
     	});
-    	*/	
+    		
     }
+    */
     
     class AnalysisTask extends AsyncTask<String, Void, Void> {
     	
@@ -159,10 +180,10 @@ public class SecondActivity extends Activity {
 		protected Void doInBackground(String... params) {
     		try {
     			//此处正则表达式极不严谨，待优化。
-    	    	Pattern p = Pattern.compile("href=\"(thread-\\d{1,9}-1-1.html)\">(.{1,140})</a></span>");
+    	    	Pattern p = Pattern.compile("href=\"(thread-\\d{1,9}-1-1.html)\">(.{1,140})</a></span>[\\s\\S]*?class=\"nums\"><strong>(.*?)</strong>");
     	    	Matcher m = p.matcher(params[0]);
     	    	while (m.find()) {
-    	    		data.add(new Page(m.group(2), m.group(1)));
+    	    		data.add(new Page2(m.group(2), m.group(1), m.group(3)));
     	    		
     	    	}
     	    	
@@ -184,7 +205,7 @@ public class SecondActivity extends Activity {
         	listView.setOnItemClickListener(new OnItemClickListener() {
         		@Override
         		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        			Page page = data.get(position);
+        			Page2 page = data.get(position);
         			//Toast.makeText(SecondActivity.this, page.getUrl(), Toast.LENGTH_SHORT).show();
         			String post = page.getUrl();
         			String title = page.getTitle();
@@ -194,6 +215,8 @@ public class SecondActivity extends Activity {
         			startActivity(intent);
         		}
         	});
+        	
+        	progressBar.setVisibility(View.GONE);
     	}
 
 		
