@@ -265,11 +265,11 @@ public class ThirdActivity extends Activity {
     */
     
     public void analysis(String response) {
-    	Pattern p = Pattern.compile("id\\)\">(.{1,20})</a></cite>[\\s\\S]*?id=\"postmessage_\\d{1,9}\"[\\s\\S]*?>([\\s\\S]*?)</div>[^\\w<]");
+    	Pattern p = Pattern.compile("id\\)\">(.{1,20})</a></cite>[\\s\\S]*?·¢±íÓÚ([\\s\\S]*?)&nbsp[\\s\\S]*?id=\"postmessage_\\d{1,9}\"[\\s\\S]*?>([\\s\\S]*?)</div>[^\\w<]");
     	Matcher m = p.matcher(response);
     	while (m.find()) {
-    		String neirong = decode(m.group(2));
-    		data.add(new Neirong(m.group(1), neirong));
+    		String neirong = decode(m.group(3));
+    		data.add(new Neirong(m.group(1), m.group(2), neirong));
     	}
     }
     /*
