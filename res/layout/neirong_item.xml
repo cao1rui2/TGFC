@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:layout_marginLeft="10dip"
+        android:layout_marginTop="10dip"
         android:textSize="16sp"
         android:textColor="#ff888888"
         />
@@ -20,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:layout_marginLeft="10dip"
-        android:textSize="20sp"
+        android:layout_marginBottom="10dip"
+        android:textSize="18sp"
         />
     
 

@@ -34,6 +34,8 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
+	private int mBackTime = 0;
+	
 	private List<Page> data = new ArrayList<Page>();
 	private ProgressBar progressBar;
 	
@@ -196,5 +198,30 @@ public class MainActivity extends Activity {
     	}
 
 		
+    }
+    
+    @Override
+    public void onBackPressed() {
+    	
+    	if (mBackTime == 0) {
+    		Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+    		mBackTime = 1;
+    		new Thread() {
+    			@Override
+    			public void run() {
+    				try {
+    					Thread.sleep(2000);
+    				} catch (InterruptedException e) {
+    					e.printStackTrace();
+    				} finally {
+    					mBackTime = 0;
+    				}
+    			}
+    		}.start();
+    		return;
+    	} else {
+    		this.finish();
+    	}
+    	super.onBackPressed();
     }
 }

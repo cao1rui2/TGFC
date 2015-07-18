@@ -3,6 +3,7 @@ package com.tgfc.app;
 import java.util.List;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class NeirongAdapter extends ArrayAdapter<Neirong> {
 			viewHolder = (ViewHolder) view.getTag();
 		}
 		viewHolder.neirongName.setText((position + 1) + "#" + " " + neirong.getName());
-		viewHolder.neirongContent.setText(neirong.getContent());
+		viewHolder.neirongContent.setText(Html.fromHtml(neirong.getContent()));
 		return view;
 	}
 	

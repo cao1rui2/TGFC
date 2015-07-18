@@ -9,35 +9,35 @@
         android:id="@+id/titlelayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#484E61"
+        android:background="#8B0000"
         >
         <Button 
             android:id="@+id/back_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/back"
+            android:background="@drawable/backselector"
             />
         <TextView 
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:maxEms="5"
+            android:maxEms="8"
             android:singleLine="true"
             android:ellipsize="end"
             android:textColor="#fff"
-            android:textSize="24sp"
+            android:textSize="20sp"
             />
 		<Button 
             android:id="@+id/refresh_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:background="@drawable/refresh"
+            android:background="@drawable/refreshselector"
             />
     </RelativeLayout>
 
@@ -45,6 +45,7 @@
         android:id="@+id/list_view2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@null"
         android:layout_below="@id/titlelayout" >
     </ListView>
     

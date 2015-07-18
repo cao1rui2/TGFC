@@ -4,7 +4,13 @@ import java.util.List;
 
 import com.tgfc.app.PageAdapter.ViewHolder;
 
+import android.R.color;
 import android.content.Context;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +40,10 @@ public class PageAdapter2 extends ArrayAdapter<Page2> {
 			view = convertView;
 			viewHolder = (ViewHolder) view.getTag();
 		}
-		viewHolder.pageTitle2.setText(page.getTitle() + "   " + "(" + page.getReplynum() + "»Ø¸´)");
+		Spannable orange = new SpannableString(page.getReplynum());
+		orange.setSpan(new ForegroundColorSpan(Color.rgb(139, 0, 0)), 0, page.getReplynum().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		viewHolder.pageTitle2.setText(page.getTitle() + "   ");
+		viewHolder.pageTitle2.append(orange);
 		return view;
 	}
 	

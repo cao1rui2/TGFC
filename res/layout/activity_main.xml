@@ -8,15 +8,15 @@
         android:id="@+id/titlelayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#484E61"
+        android:background="#8B0000"
         >
         <Button 
             android:id="@+id/back_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/back"
+            android:background="@drawable/backselector"
             />
         <TextView 
             android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
             android:layout_centerInParent="true"
             android:text="TGFC"
             android:textColor="#fff"
-            android:textSize="24sp"
+            android:textSize="20sp"
             />
     </RelativeLayout>
 
@@ -32,6 +32,7 @@
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@null"
         android:layout_below="@id/titlelayout" >
     </ListView>
     

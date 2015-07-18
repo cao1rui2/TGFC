@@ -209,9 +209,20 @@ public class SecondActivity extends Activity {
         			//Toast.makeText(SecondActivity.this, page.getUrl(), Toast.LENGTH_SHORT).show();
         			String post = page.getUrl();
         			String title = page.getTitle();
+        			String replynum = page.getReplynum();
+        			int i = Integer.parseInt(replynum);
+        			int pagenum;
+        			if ((i + 1) % 15 != 0) {
+        				pagenum = (i + 1) / 15 + 1;
+        			} else {
+        				pagenum = (i + 1) / 15;
+        			}
+        			String strnum = "" + pagenum;
+        			//Toast.makeText(SecondActivity.this, strnum, Toast.LENGTH_LONG).show();
         			Intent intent = new Intent(SecondActivity.this, ThirdActivity.class);
         			intent.putExtra("post_data", post);
         			intent.putExtra("post_title", title);
+        			intent.putExtra("post_pagenum", strnum);
         			startActivity(intent);
         		}
         	});
