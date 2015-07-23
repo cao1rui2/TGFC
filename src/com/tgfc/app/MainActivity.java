@@ -39,6 +39,8 @@ public class MainActivity extends Activity {
 	private List<Page> data = new ArrayList<Page>();
 	private ProgressBar progressBar;
 	
+	private Toast toast;
+	
 	public static final int ANALYSIS_RESPONSE = 0;
 	
 	private Handler handler = new Handler() {
@@ -204,7 +206,8 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
     	
     	if (mBackTime == 0) {
-    		Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+    		toast = Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT);
+    		toast.show();
     		mBackTime = 1;
     		new Thread() {
     			@Override
@@ -220,6 +223,7 @@ public class MainActivity extends Activity {
     		}.start();
     		return;
     	} else {
+    		toast.cancel();
     		this.finish();
     	}
     	super.onBackPressed();
