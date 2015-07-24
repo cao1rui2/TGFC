@@ -20,8 +20,8 @@
 * 自动加载，手动刷新
 
 ##截图
-![首页](http://ww3.sinaimg.cn/mw690/74de6eafgw1eue9pjgbv1j20k00zkacx.jpg)  ![板块](http://ww3.sinaimg.cn/mw690/74de6eafgw1eue9pkq5ovj20k00zk79a.jpg)
-![帖子1](http://ww3.sinaimg.cn/mw690/74de6eafgw1eue9pm1al3j20k00zkn3x.jpg)
-![帖子2](http://ww2.sinaimg.cn/mw690/74de6eafgw1eue9pna5oxj20k00zktd8.jpg)
-![帖子3](http://ww1.sinaimg.cn/mw690/74de6eafgw1eue9poknfxj20k00zkgq6.jpg)
+![首页](http://ww1.sinaimg.cn/mw690/74de6eafgw1euea7v84faj20a00hsab2.jpg)  ![板块](http://ww1.sinaimg.cn/mw690/74de6eafgw1euea7vslrqj20a00hsjtc.jpg)
+![帖子1](http://ww1.sinaimg.cn/mw690/74de6eafgw1euea7ww9d2j20a00hs771.jpg)
+![帖子2](http://ww4.sinaimg.cn/mw690/74de6eafgw1euea7xxrt9j20a00hswgc.jpg)
+![帖子3](http://ww3.sinaimg.cn/mw690/74de6eafgw1euea7z2kazj20a00hswgc.jpg)
   
